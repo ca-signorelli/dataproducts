@@ -1,0 +1,38 @@
+---
+title: "Map of IMR locations Bergen"
+author: "Christian Andersen"
+date: "27 9 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(stringr)
+
+# install.packages("leaflet")
+library(leaflet)
+```
+
+## Introduction
+
+This is my delivery to the Assignment R Markdown and leaflet. It shows the location of buildings at the Institute of Marine Research, Bergen, Norway.
+
+## Defining content of the map
+First I define the logo to be used as marker in the map. After that the popup text is defined.
+
+```{r def, echo=TRUE}
+logo <- makeIcon(iconUrl="G:/Kostnadsanalyse og prising/R kurs/Coursera Data Science/IMR_logo.png",
+                 iconWidth = 35, iconHeight = 35, iconAnchorX = 17.5, iconAnchorY = 17.5)
+site <- c("Main building, Nordnesgaten 50", "Offices, Nordnesgaten 33","New offices, Strandgaten 196","Shipping department, Nykirkekaien")
+```
+
+## Creating the map
+First the location of the four buildings is defined. Then the map is created.
+
+```{r map, echo=TRUE}
+loc <- data.frame(lat=c(60.4,60.3992,60.3982,60.3975),lng=c(5.3035,5.308,5.3101,5.314))
+loc %>% leaflet() %>% addTiles() %>% addMarkers(icon=logo, popup=site) 
+```
+
+
